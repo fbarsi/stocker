@@ -100,10 +100,27 @@ stocker/
 * Milesi, Agustín Exequiel
   
 
+## 📄 Capturas de pantalla: Login
+![alt text](./assets/Screenshot-Login1.png)![alt text](./assets/Screenshot-Login2.png)
+
+Permite iniciar sesión. Para hacerlo más cómodo a la vista del usuario incorporamos en un botón un cambio de tema para el resto de la aplicación, además de un checkbox para recordar los datos para futuros inicios de sesión. 
+
+## 📄 Capturas de pantalla: Registro
+![alt text](./assets/Screenshot-Registro.png)
+
+Permite que el usuario se registre. El registro cuenta con validación de entrada de datos, para no incumplir con los formatos requeridos.
+
+## 📄 Capturas de pantalla: Inicio
+![alt text](./assets/Screenshot-Inicio.png)
+
+Ésta es la pantalla principal de la aplicación, con accesos directos a las funcionalidades. Además cuenta con un botón de deslogueo en caso de querer iniciar sesión con otras credenciales.
+
+## 📄 Capturas de pantalla: Inventario
+![alt text](./assets/Screenshot-Inventario.png)
+
+El Inventario nos va a permitir visualizar, buscar y editar una lista con los productos añadidos.
+
+
 ## 📄 Licencia
 
 Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
-
-
-
-
