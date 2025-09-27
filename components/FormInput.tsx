@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, KeyboardTypeOptions } from 'react-native';
 import React, { ChangeEvent, useState } from 'react';
 import { useStyles } from '@utils/styles';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -10,11 +10,21 @@ interface FIProps {
   error?: string | false | undefined;
   value: string;
   secureTextEntry?: boolean;
+  keyboardType?: KeyboardTypeOptions;
   hideErrorBelow?: boolean;
 }
 
 export function FormInput(props: FIProps) {
-  const { handleChange, handleBlur, placeholder, error, value, secureTextEntry = false, hideErrorBelow } = props;
+  const {
+    handleChange,
+    handleBlur,
+    placeholder,
+    error,
+    value,
+    secureTextEntry = false,
+    hideErrorBelow,
+    keyboardType,
+  } = props;
   const [showPass, setShowPass] = useState<boolean>(!secureTextEntry);
   const style = useStyles();
 
@@ -23,12 +33,13 @@ export function FormInput(props: FIProps) {
       <View style={[style.inputContainer, error && style.errorInput]}>
         <TextInput
           secureTextEntry={!showPass}
-          style={style.input2}
+          style={style.input}
           placeholder={placeholder}
           placeholderTextColor={style.placeholder.color}
           onChangeText={handleChange}
           onBlur={handleBlur}
           value={value}
+          keyboardType={keyboardType}
         />
         {secureTextEntry && (
           <Pressable onPress={() => setShowPass(!showPass)} style={{ padding: 16 }}>

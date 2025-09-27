@@ -37,21 +37,21 @@ export default function Register() {
           <Text style={style.title}>Registrarse</Text>
 
           <FormInput
-            placeholder='Nombre'
+            placeholder="Nombre"
             handleChange={handleChange('name')}
             handleBlur={handleBlur('name')}
             error={touched.name && errors.name}
             value={values.name}
           />
           <FormInput
-            placeholder='Apellido'
+            placeholder="Apellido"
             handleChange={handleChange('lastname')}
             handleBlur={handleBlur('lastname')}
             error={touched.lastname && errors.lastname}
             value={values.lastname}
           />
           <FormInput
-            placeholder='Correo electrónico'
+            placeholder="Correo electrónico"
             handleChange={handleChange('email')}
             handleBlur={handleBlur('email')}
             error={touched.email && errors.email}
@@ -59,7 +59,7 @@ export default function Register() {
           />
           <FormInput
             secureTextEntry={true}
-            placeholder='Contraseña'
+            placeholder="Contraseña"
             handleChange={handleChange('password')}
             handleBlur={handleBlur('password')}
             error={touched.password && errors.password}
@@ -67,7 +67,7 @@ export default function Register() {
           />
           <FormInput
             secureTextEntry={true}
-            placeholder='Confirmar contraseña'
+            placeholder="Confirmar contraseña"
             handleChange={handleChange('confirmPassword')}
             handleBlur={handleBlur('confirmPassword')}
             error={touched.confirmPassword && errors.confirmPassword}

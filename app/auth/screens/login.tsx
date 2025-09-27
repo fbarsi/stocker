@@ -23,7 +23,7 @@ export default function Login() {
     dispatch({
       type: AuthActionTypes.LOGIN_SUCCESS,
       payload: {
-        user: 'Fran',
+        user: 'José',
         token: 'TOKEN',
       },
     });
@@ -48,6 +48,7 @@ export default function Login() {
             handleBlur={handleBlur('email')}
             value={values.email}
             hideErrorBelow={true}
+            keyboardType="email-address"
           />
           <View style={style.divider} />
           <FormInput
@@ -61,10 +62,7 @@ export default function Login() {
           <Text style={[style.error]}>
             {touched.email && touched.password && !isValid && 'Debes ingresar email y contraseña'}
           </Text>
-          <Pressable
-            style={style.containerRow}
-            onPress={() => setFieldValue('check', !values.check)}
-          >
+          <Pressable style={style.containerRow} onPress={() => setFieldValue('check', !values.check)}>
             <MaterialIcons
               name={values.check ? 'check-box' : 'check-box-outline-blank'}
               size={24}

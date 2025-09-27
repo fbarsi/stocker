@@ -1,16 +1,14 @@
 import { ThemeContext } from '@shared/ThemeContext';
 import { Product, products } from '@utils/productList';
 import React, { useContext } from 'react';
-import { View, Text, FlatList, StyleSheet, ListRenderItem, TextInput } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ListRenderItem, TextInput, Dimensions } from 'react-native';
 
 export default function Products(): React.JSX.Element {
-  const style = useStyle();
-  
+  const { style, padCont } = useStyle();
+
   const renderItem: ListRenderItem<Product> = ({ item }) => (
     <View style={style.row}>
-      <Text style={[style.cell, style.cellNombre]}>
-        {item.name}
-      </Text>
+      <Text style={[style.cell, style.cellNombre]}>{item.name}</Text>
       <Text style={[style.cell, style.cellBultos, style.cellNumber]}>{item.cases}</Text>
       <Text style={[style.cell, style.cellUnidades, style.cellNumber]}>{item.units}</Text>
     </View>
@@ -18,9 +16,13 @@ export default function Products(): React.JSX.Element {
 
   return (
     <View style={style.container}>
-      <TextInput style={style.input} placeholder="Escriba el nombre de un producto..." />
+      <TextInput
+        style={style.input}
+        placeholderTextColor={style.placeholder.color}
+        placeholder="Escriba el nombre de un producto..."
+      />
 
-      <View style={{flex:1}}>
+      <View style={{ flex: 1 }}>
         <View style={style.headerRow}>
           <Text style={[style.headerCell, style.cellNombre]}>Nombre</Text>
           <Text style={[style.headerCell, style.cellBultos]}>Bultos</Text>
@@ -31,6 +33,7 @@ export default function Products(): React.JSX.Element {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+          ListFooterComponent={() => <View style={{ height: padCont }} />}
           scrollEnabled={true}
           showsVerticalScrollIndicator={false}
         />
@@ -41,11 +44,14 @@ export default function Products(): React.JSX.Element {
 
 const useStyle = () => {
   const { colors } = useContext(ThemeContext);
+  const window = Dimensions.get('window');
+  const padCont = window.width > 600 ? 48 : 16;
 
   const style = StyleSheet.create({
     container: {
       flex: 1,
-      padding: 16,
+      padding: padCont,
+      paddingBottom: 0,
       backgroundColor: colors.background,
     },
     input: {
@@ -56,6 +62,9 @@ const useStyle = () => {
       padding: 16,
       height: 56,
       color: colors.text,
+    },
+    placeholder: {
+      color: colors.low_emphasis,
     },
     headerRow: {
       flexDirection: 'row',
@@ -96,9 +105,8 @@ const useStyle = () => {
     },
     cellNumber: {
       fontWeight: 'bold',
-      // color: colors.text,
     },
   });
 
-  return style;
+  return { style, padCont };
 };
