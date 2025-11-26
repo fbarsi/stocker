@@ -11,7 +11,7 @@ import { View } from 'react-native';
 import { useAuth } from '@shared/context/AuthContext/AuthContext';
 import { getUser } from '@shared/context/AuthContext/secure-store';
 import { usePushNotifications } from '@shared/hooks/usePushNotifications';
-import { Text, Alert, Clipboard, TouchableOpacity } from 'react-native';
+import { useManagementApi } from '@api/management';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +19,7 @@ export default function Root() {
   const { state, dispatch } = useAuth();
   const { isDarkMode, colors } = useContext(ThemeContext);
   const { expoPushToken, notification } = usePushNotifications();
+  const api = useManagementApi();
   const [fontsLoaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
@@ -30,12 +31,13 @@ export default function Root() {
     }
   }, [expoPushToken]);
 
-  const copyToken = () => {
-    if (expoPushToken) {
-      Clipboard.setString(expoPushToken);
-      Alert.alert('Copiado', 'Token copiado al portapapeles');
+  useEffect(() => {
+    if (state.isAuthenticated && expoPushToken) {
+      console.log("Enviando Push Token al backend...");
+      api.updateUserProfile({ pushToken: expoPushToken })
+         .catch(err => console.log("Error guardando token:", err));
     }
-  };
+  }, [state.isAuthenticated, expoPushToken]);
 
   useEffect(() => {
     dispatch({ type: AuthActionTypes.LOGIN_START });

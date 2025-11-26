@@ -222,6 +222,15 @@ export const useManagementApi = () => {
   return response.json();
   };
 
+  const updateUserProfile = async (data: { pushToken?: string }) => {
+    const response = await secureFetch('/users/me', {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error('Error actualizando token push');
+    return response.json();
+  };
+
   return {
     getUserProfile,
     createCompany,
@@ -238,5 +247,6 @@ export const useManagementApi = () => {
     adjustInventory,
     getBranchMovements,
     getItemBySku,
+    updateUserProfile
   };
 };
