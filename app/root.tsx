@@ -3,14 +3,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ROOT_ROUTES } from '@utils/constants';
 import AuthScreen from './auth';
 import TabsScreen from './tabs';
-import { use, useContext, useEffect } from 'react';
-import { AuthActionTypes, AuthContext } from '@shared/context/AuthContext';
+import { useContext, useEffect } from 'react';
+import { AuthActionTypes } from '@shared/context/AuthContext';
 import { ThemeContext } from '@shared/context/ThemeContext';
 import { SystemBars } from 'react-native-edge-to-edge';
 import { View } from 'react-native';
 import { useAuth } from '@shared/context/AuthContext/AuthContext';
 import { getUser } from '@shared/context/AuthContext/secure-store';
-import * as SplashScreen from 'expo-splash-screen';
 import { usePushNotifications } from '@shared/hooks/usePushNotifications';
 import { Text, Alert, Clipboard, TouchableOpacity } from 'react-native';
 

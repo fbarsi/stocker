@@ -34,11 +34,7 @@ export default function NewProduct() {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Nombre del Producto</Text>
-      <TextInput
-        style={styles.input}
-        placeholderTextColor={colors.text_muted}
-        placeholder="Ej: Coca-Cola"
-      />
+      <TextInput style={styles.input} placeholderTextColor={colors.text_muted} placeholder="Ej: Coca-Cola" />
       <Text style={styles.label}>Cantidad de Bultos</Text>
       <TextInput
         style={styles.input}

@@ -132,7 +132,6 @@ export function StockAdjustmentModal({ visible, onClose, item, onConfirm }: Stoc
         <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
             <View style={styles.overlay}>
                 <View style={styles.container}>
-                    {/* Header */}
                     <View style={styles.header}>
                         <Text style={styles.title}>{item.item.itemName}</Text>
                         <Pressable onPress={onClose}>

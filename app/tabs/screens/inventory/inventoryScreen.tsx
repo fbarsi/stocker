@@ -36,7 +36,6 @@ export default function InventoryScreen() {
             api.adjustInventory(branchId, vars.type, vars.data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['inventory', branchId] });
-            Alert.alert('Éxito', 'Stock actualizado correctamente.');
         },
         onError: (err) => Alert.alert('Error', err.message),
     });
@@ -50,7 +49,6 @@ export default function InventoryScreen() {
         if (!selectedItem) return;
         
         if (bundleChange === 0 && unitChange === 0) {
-            Alert.alert('Atención', 'Debes ingresar al menos un valor.');
             return;
         }
 
@@ -69,13 +67,11 @@ export default function InventoryScreen() {
             style={[localStyles.card, { backgroundColor: colors.bg_light, borderColor: colors.border }]}
             onPress={() => handleOpenModal(item)}
         >
-            {/* Icono o SKU */}
             <View style={[localStyles.iconBox, { backgroundColor: 'rgba(0,0,0,0.05)' }]}>
                 <Text style={{ fontSize: 10, fontWeight: 'bold', color: colors.text_muted }}>SKU</Text>
                 <Text style={{ fontSize: 12, color: colors.text }}>{item.item.sku || '---'}</Text>
             </View>
 
-            {/* Info Principal */}
             <View style={{ flex: 1, paddingHorizontal: 10 }}>
                 <Text style={[style.text, { fontWeight: 'bold', fontSize: 16, marginBottom: 4 }]}>
                     {item.item.itemName}
@@ -85,7 +81,6 @@ export default function InventoryScreen() {
                 </Text>
             </View>
 
-            {/* Stock Actual */}
             <View style={{ alignItems: 'flex-end' }}>
                 <Text style={[style.text, { fontSize: 18, fontWeight: 'bold', color: colors.primary }]}>
                     {item.bundleQuantity} <Text style={{fontSize: 12}}>Bultos</Text>

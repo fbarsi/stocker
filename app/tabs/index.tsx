@@ -12,6 +12,7 @@ import {
   InvitationsManager,
   InvitationsUser,
   InventoryScreen,
+  HistoryScreen,
 } from './screens';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { Pressable } from 'react-native';
@@ -57,6 +58,16 @@ function TabNavigator() {
         options={{
           title: 'Inventario',
           tabBarIcon: ({ size, color }) => <FontAwesome5 name={'list-alt'} size={size} color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name={TAB_ROUTES.HISTORY}
+        component={HistoryScreen}
+        options={{
+          title: 'Historial',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="history" size={size} color={color} />
+          ),
         }}
       />
     </Tab.Navigator>

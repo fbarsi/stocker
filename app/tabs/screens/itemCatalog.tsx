@@ -1,4 +1,12 @@
-import { View, Text, FlatList, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+  RefreshControl,
+} from 'react-native';
 import React, { useState, useContext } from 'react';
 import { useStyles } from '@utils/styles';
 import { useManagementApi, Item } from '@api/management';
@@ -25,7 +33,12 @@ export default function ItemsCatalog() {
 
   const isManager = state.user?.role === 'Manager';
 
-  const { data: items, isLoading } = useQuery({
+  const {
+    data: items,
+    isLoading,
+    refetch,
+    isRefetching,
+  } = useQuery({
     queryKey: ['items'],
     queryFn: api.getItems,
   });
@@ -130,6 +143,14 @@ export default function ItemsCatalog() {
             </Text>
           }
           contentContainerStyle={{ paddingBottom: 50 }}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefetching}
+              onRefresh={refetch}
+              tintColor={colors.primary}
+              colors={[colors.primary]}
+            />
+          }
         />
 
         <ItemDetailModal

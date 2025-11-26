@@ -11,6 +11,7 @@ export enum AUTH_ROUTES {
 export enum TAB_ROUTES {
     HOME = 'home',
     PRODUCTS = 'products',
+    HISTORY = 'history',
 }
 
 export enum STACK_ROUTES {

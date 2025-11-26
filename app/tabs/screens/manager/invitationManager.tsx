@@ -6,6 +6,7 @@ import { useManagementApi, Invitation, InvitationStatus } from '@api/management'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ThemeContext } from '@shared/context/ThemeContext';
 import { MaterialIcons } from '@expo/vector-icons';
+import { RefreshControl } from 'react-native';
 
 export default function InvitationsManager() {
   const style = useStyles();
@@ -18,7 +19,12 @@ export default function InvitationsManager() {
 
   const { data: branches } = useQuery({ queryKey: ['branches'], queryFn: api.getBranches });
 
-  const { data: invitations, isLoading } = useQuery({
+  const {
+    data: invitations,
+    isLoading,
+    refetch,
+    isRefetching,
+  } = useQuery({
     queryKey: ['sentInvitations'],
     queryFn: api.getSentInvitations,
   });
@@ -26,7 +32,6 @@ export default function InvitationsManager() {
   const sendInviteMutation = useMutation({
     mutationFn: api.createInvitation,
     onSuccess: () => {
-      Alert.alert('¡Enviada!', `Invitación enviada a ${emailToInvite}`);
       setEmailToInvite('');
       queryClient.invalidateQueries({ queryKey: ['sentInvitations'] });
     },
@@ -35,7 +40,6 @@ export default function InvitationsManager() {
 
   const handleSend = () => {
     if (!branches || branches.length === 0) {
-      Alert.alert('Error', 'No tienes sucursales creadas para invitar.');
       return;
     }
     const defaultBranchId = branches[0].branchId;
@@ -78,10 +82,7 @@ export default function InvitationsManager() {
         <Text style={[style.title, { fontSize: 20, marginBottom: 10 }]}>Invitar Empleado</Text>
 
         <TextInput
-          style={[
-            style.input,
-            { borderWidth: 1, borderColor: colors.border, borderRadius: 8, marginBottom: 10 },
-          ]}
+          style={style.input}
           placeholder="Email del empleado"
           placeholderTextColor={style.placeholder.color}
           value={emailToInvite}
@@ -127,6 +128,14 @@ export default function InvitationsManager() {
           renderItem={renderItem}
           style={{ width: '100%' }}
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefetching}
+              onRefresh={refetch}
+              tintColor={colors.primary}
+              colors={[colors.primary]}
+            />
+          }
           ListEmptyComponent={
             <Text style={[style.text, { textAlign: 'center', marginTop: 20, opacity: 0.5 }]}>
               Sin invitaciones.

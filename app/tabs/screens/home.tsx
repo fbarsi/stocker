@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Button, ButtonTheme, BranchCard } from '@components';
 import { useStyles } from '@utils/styles';
 import { useNavigation } from '@react-navigation/native';
-import { STACK_ROUTES } from '@utils/constants';
+import { STACK_ROUTES, TAB_ROUTES } from '@utils/constants';
 import { useAuth } from '@shared/context/AuthContext/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { useManagementApi } from '@api/management';
@@ -129,10 +129,7 @@ export default function Home() {
               <Button
                 text="Ver inventario"
                 onPress={() => {
-                  (navigation as any).navigate(STACK_ROUTES.INVENTORY, {
-                    branchId: assignedBranch.branchId,
-                    branchName: assignedBranch.branchName,
-                  });
+                  (navigation as any).navigate(TAB_ROUTES.PRODUCTS);
                 }}
               />
             </View>
@@ -147,7 +144,7 @@ export default function Home() {
   }
 
   return (
-    <View style={[style.container, { paddingHorizontal: 20, paddingTop: 20 }]}>
+    <View style={[style.container, { paddingBottom: 0 }]}>
       <FlatList
         data={branches}
         keyExtractor={(item) => item.branchId.toString()}

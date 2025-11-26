@@ -105,9 +105,7 @@ export default function NewBranch() {
     mutationFn: api.createBranch,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['branches'] });
-      Alert.alert('¡Éxito!', 'Sucursal creada correctamente.', [
-        { text: 'OK', onPress: () => navigation.goBack() },
-      ]);
+      navigation.goBack()
     },
     onError: (err) => Alert.alert('Error', err.message),
   });
@@ -120,68 +118,68 @@ export default function NewBranch() {
       showsVerticalScrollIndicator={false}
       extraKeyboardSpace={-20}
     >
-        <View style={{ width: '100%' }}>
-          <Text style={style.title}>Nueva Sucursal</Text>
-          <Text style={[style.text, { marginBottom: 20 }]}>
-            Indica el nombre y la ubicación de la sucursal.
-          </Text>
+      <View style={{ width: '100%' }}>
+        <Text style={style.title}>Nueva Sucursal</Text>
+        <Text style={[style.text, { marginBottom: 20 }]}>
+          Indica el nombre y la ubicación de la sucursal.
+        </Text>
 
-          <Text style={styles.label}>Nombre</Text>
+        <Text style={[style.text, { fontWeight: 'bold', marginBottom: 5}]}>Nombre</Text>
+        <TextInput
+          style={[style.input, styles.inputMargin]}
+          placeholder="Ej: Casa Central"
+          placeholderTextColor={style.placeholder.color}
+          value={branchName}
+          onChangeText={setBranchName}
+        />
+
+        <Text style={[style.text, { fontWeight: 'bold', marginBottom: 5}]}>Dirección</Text>
+        <View style={{ flexDirection: 'row', gap: 8, marginBottom: 15 }}>
           <TextInput
-            style={[style.input, styles.inputMargin]}
-            placeholder="Ej: Casa Central"
+            style={[style.input, { flex: 1, marginBottom: 0 }]}
+            placeholder="Escribe o toca el mapa"
             placeholderTextColor={style.placeholder.color}
-            value={branchName}
-            onChangeText={setBranchName}
+            value={branchAddress}
+            onChangeText={setBranchAddress}
           />
-
-          <Text style={styles.label}>Dirección</Text>
-          <View style={{ flexDirection: 'row', gap: 8, marginBottom: 15 }}>
-            <TextInput
-              style={[style.input, { flex: 1, marginBottom: 0 }]}
-              placeholder="Escribe o toca el mapa"
-              placeholderTextColor={style.placeholder.color}
-              value={branchAddress}
-              onChangeText={setBranchAddress}
-            />
-            <TouchableOpacity
-              onPress={handleSearchAddress}
-              style={{
-                backgroundColor: style.text.color,
-                justifyContent: 'center',
-                paddingVertical: 10,
-                paddingHorizontal: 16,
-                borderRadius: 8,
-              }}
-            >
-              <MaterialCommunityIcons name="magnify" size={24} color={style.card.backgroundColor} />
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.mapContainer}>
-            {isLoadingLocation ? (
-              <ActivityIndicator size="large" color={style.text.color} style={{ marginTop: 120 }} />
-            ) : (
-              <MapView
-                provider={PROVIDER_GOOGLE}
-                style={styles.map}
-                region={region}
-                onRegionChangeComplete={setRegion}
-                onPress={handleMapPress}
-                showsUserLocation={true}
-                showsMyLocationButton={true}
-              >
-                {markerPosition && <Marker coordinate={markerPosition} />}
-              </MapView>
-            )}
-          </View>
-
-          <Button
-            text={createBranchMutation.isPending ? 'Guardando...' : 'Crear Sucursal'}
-            onPress={() => createBranchMutation.mutate({ branchName: branchName, address: branchAddress })}
-            disabled={!branchName.trim() || createBranchMutation.isPending}
-          />
+          <TouchableOpacity
+            onPress={handleSearchAddress}
+            style={{
+              backgroundColor: style.text.color,
+              justifyContent: 'center',
+              paddingVertical: 10,
+              paddingHorizontal: 16,
+              borderRadius: 8,
+            }}
+          >
+            <MaterialCommunityIcons name="magnify" size={24} color={style.card.backgroundColor} />
+          </TouchableOpacity>
         </View>
+
+        <View style={styles.mapContainer}>
+          {isLoadingLocation ? (
+            <ActivityIndicator size="large" color={style.text.color} style={{ marginTop: 120 }} />
+          ) : (
+            <MapView
+              provider={PROVIDER_GOOGLE}
+              style={styles.map}
+              region={region}
+              onRegionChangeComplete={setRegion}
+              onPress={handleMapPress}
+              showsUserLocation={true}
+              showsMyLocationButton={true}
+            >
+              {markerPosition && <Marker coordinate={markerPosition} />}
+            </MapView>
+          )}
+        </View>
+
+        <Button
+          text={createBranchMutation.isPending ? 'Guardando...' : 'Crear Sucursal'}
+          onPress={() => createBranchMutation.mutate({ branchName: branchName, address: branchAddress })}
+          disabled={!branchName.trim() || createBranchMutation.isPending}
+        />
+      </View>
     </KeyboardAwareScrollView>
   );
 }

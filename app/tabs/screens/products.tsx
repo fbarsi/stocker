@@ -78,7 +78,6 @@ export default function Products(): React.JSX.Element {
       api.adjustInventory(selectedBranchId!, vars.type, vars.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['inventory', selectedBranchId] });
-      Alert.alert('Éxito', 'Movimiento registrado correctamente.');
       setModalVisible(false);
     },
     onError: (err: any) => Alert.alert('Error', err.message),
@@ -87,7 +86,6 @@ export default function Products(): React.JSX.Element {
   const handleConfirmAdjustment = async (type: MovementType, bundleChange: number, unitChange: number) => {
     if (!selectedItem) return;
     if (bundleChange === 0 && unitChange === 0) {
-      Alert.alert('Atención', 'Ingresa una cantidad.');
       return;
     }
     await adjustmentMutation.mutateAsync({

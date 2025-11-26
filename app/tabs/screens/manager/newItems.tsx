@@ -25,7 +25,6 @@ export default function NewItem() {
     mutationFn: api.createItem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['items'] });
-      Alert.alert('¡Éxito!', 'Artículo agregado al catálogo.');
       navigation.goBack();
     },
     onError: (err) => Alert.alert('Error', err.message),

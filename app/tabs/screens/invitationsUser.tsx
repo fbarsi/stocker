@@ -11,6 +11,7 @@ import { useAuth } from '@shared/context/AuthContext/AuthContext';
 import { refreshTokenApiCall } from '@api/auth';
 import { setTokens } from '@shared/context/AuthContext/secure-store';
 import { AuthActionTypes } from '@shared/context/AuthContext';
+import { RefreshControl } from 'react-native';
 
 export default function InvitationsUser() {
   const style = useStyles();
@@ -20,7 +21,12 @@ export default function InvitationsUser() {
   const navigation = useNavigation();
   const { state, dispatch } = useAuth();
 
-  const { data: invitations, isLoading } = useQuery({
+  const {
+    data: invitations,
+    isLoading,
+    refetch,
+    isRefetching,
+  } = useQuery({
     queryKey: ['receivedInvitations'],
     queryFn: api.getReceivedInvitations,
   });
@@ -49,7 +55,6 @@ export default function InvitationsUser() {
           dispatch({ type: AuthActionTypes.LOGOUT });
         }
       } else {
-        Alert.alert('Invitación rechazada');
         queryClient.invalidateQueries({ queryKey: ['receivedInvitations'] });
       }
     },
@@ -105,6 +110,14 @@ export default function InvitationsUser() {
         renderItem={renderItem}
         style={{ width: '100%' }}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefetching}
+            onRefresh={refetch}
+            tintColor={colors.primary}
+            colors={[colors.primary]}
+          />
+        }
         ListEmptyComponent={
           <Text style={[style.text, { textAlign: 'center', marginTop: 50 }]}>No tienes invitaciones.</Text>
         }

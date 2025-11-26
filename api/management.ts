@@ -77,6 +77,16 @@ export interface AdjustInventoryDto {
 
 export type MovementType = 'inbound' | 'sale' | 'adjustment';
 
+export interface Movement {
+  movementId: number;
+  movementType: 'INBOUND' | 'SALE' | 'ADJUSTMENT';
+  bundleChange: number;
+  unitChange: number;
+  timestamp: string;
+  item: { itemName: string; sku?: string };
+  user: { name: string; lastname: string; email: string };
+}
+
 export const useManagementApi = () => {
   const secureFetch = useSecureFetch();
 
@@ -197,6 +207,12 @@ export const useManagementApi = () => {
     return response.json();
   };
 
+  const getBranchMovements = async (branchId: number, page = 1, limit = 20): Promise<Movement[]> => {
+    const response = await secureFetch(`/inventory/movements/branch/${branchId}?page=${page}&limit=${limit}`);
+    if (!response.ok) throw new Error('Error al cargar historial');
+    return response.json();
+  };
+
   return {
     getUserProfile,
     createCompany,
@@ -211,5 +227,6 @@ export const useManagementApi = () => {
     respondToInvitation,
     getBranchInventory,
     adjustInventory,
+    getBranchMovements,
   };
 };
