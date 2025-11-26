@@ -14,12 +14,15 @@ import {
 } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useRoute, useNavigation } from '@react-navigation/native'; // Importaciones necesarias
 
 import { ThemeContext } from '@shared/context/ThemeContext';
 import { useManagementApi, InventoryItem, MovementType, Branch, Item } from '@api/management';
 
 import { Button } from '@components/Button';
 import { StockAdjustmentModal } from '@components/StockAdjustmentModal';
+import { STACK_ROUTES } from '@utils/constants';
+
 
 export default function Products(): React.JSX.Element {
   const { style, padCont, colors } = useStyle();
@@ -33,6 +36,9 @@ export default function Products(): React.JSX.Element {
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
   const [selectedBranchId, setSelectedBranchId] = useState<number | null>(null);
   const [branchSelectorVisible, setBranchSelectorVisible] = useState(false);
+  
+  const navigation = useNavigation(); // Hook de navegación
+  const route = useRoute<any>(); // Hook para leer parámetros
 
   const { data: userProfile, isLoading: loadingProfile } = useQuery({
     queryKey: ['userProfile'],
@@ -72,6 +78,32 @@ export default function Products(): React.JSX.Element {
     queryFn: api.getItems,
     enabled: catalogModalVisible,
   });
+
+  // === LÓGICA CLAVE: ESCUCHAR PRODUCTO ESCANEADO ===
+  useEffect(() => {
+    if (route.params?.scannedProduct) {
+      const product: Item = route.params.scannedProduct;
+      
+      // 1. Intentamos encontrar si ya tiene stock en la lista actual (para obtener cantidades)
+      const existingEntry = inventory?.find(inv => inv.item.itemId === product.itemId);
+
+      // 2. Preparamos el objeto InventoryItem (si no existe, inicializamos en 0)
+      const itemForModal: InventoryItem = existingEntry || {
+        inventoryId: 0, 
+        item: product,
+        bundleQuantity: 0,
+        unitQuantity: 0
+      };
+
+      // 3. Abrimos el modal automáticamente
+      setSelectedItem(itemForModal);
+      setModalVisible(true);
+
+      // 4. Limpiamos el parámetro de navegación (Importante)
+      navigation.setParams(undefined as any);
+    }
+  }, [route.params?.scannedProduct, inventory]);
+
 
   const adjustmentMutation = useMutation({
     mutationFn: (vars: { type: MovementType; data: any }) =>
@@ -225,8 +257,11 @@ export default function Products(): React.JSX.Element {
 
             <View style={{ marginBottom: 15 }}>
               <Button
-                text="Escanear Código (Demo)"
-                onPress={() => Alert.alert('Escáner', 'Funcionalidad en desarrollo')}
+                text="Escanear Código"
+                onPress={() => {
+                   setCatalogModalVisible(false); // Cierra este modal
+                   navigation.navigate(STACK_ROUTES.SCANNER as never); // Navega al scanner
+                }}
               />
             </View>
 

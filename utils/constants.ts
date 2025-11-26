@@ -23,5 +23,6 @@ export enum STACK_ROUTES {
     INVITATIONS_MANAGER = 'invitations-manager',
     INVITATIONS_USER = 'invitations-user',
     INVENTORY = 'inventory',
+    SCANNER = "SCANNER",
 }
 

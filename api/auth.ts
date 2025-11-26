@@ -1,8 +1,8 @@
 import { LoginCredentials, RegisterData } from "@shared/interfaces";
 
 // const BASE_URL = 'https://stocker-api-1h4x.onrender.com';
-export const BASE_URL = 'http://192.168.100.85:3000'
-// export const BASE_URL = 'https://stocker-api-production.up.railway.app'
+// export const BASE_URL = 'http://192.168.100.85:3000'
+export const BASE_URL = 'https://stocker-api-production.up.railway.app'
 
 export const loginApiCall = async (credentials: LoginCredentials) => {
   const response = await fetch(`${BASE_URL}/auth/login`, {

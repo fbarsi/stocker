@@ -197,6 +197,15 @@ export const useManagementApi = () => {
     return response.json();
   };
 
+  const getItemBySku = async (sku: string) => {
+  const response = await secureFetch(`/items/sku/${sku}`);
+  if (!response.ok) {
+
+    throw new Error('Producto no encontrado');
+  }
+  return response.json();
+  };
+
   return {
     getUserProfile,
     createCompany,
@@ -211,5 +220,6 @@ export const useManagementApi = () => {
     respondToInvitation,
     getBranchInventory,
     adjustInventory,
+    getItemBySku,
   };
 };

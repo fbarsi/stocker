@@ -9,6 +9,7 @@ import NewItem from './manager/newItems';
 import InvitationsManager from './manager/invitationManager';
 import InvitationsUser from './invitationsUser';
 import InventoryScreen from './inventory/inventoryScreen';
+import ScannerScreen from './scanner';
 
 export {
   Home,
@@ -21,5 +22,6 @@ export {
   NewItem,
   InvitationsManager,
   InvitationsUser,
-  InventoryScreen
+  InventoryScreen,
+  ScannerScreen,
 };
