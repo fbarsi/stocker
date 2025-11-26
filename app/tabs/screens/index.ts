@@ -10,6 +10,7 @@ import InvitationsManager from './manager/invitationManager';
 import InvitationsUser from './invitationsUser';
 import InventoryScreen from './inventory/inventoryScreen';
 import HistoryScreen from './historyScreen';
+import ScannerScreen from './scanner';
 
 export {
   Home,
@@ -24,4 +25,5 @@ export {
   InvitationsUser,
   InventoryScreen,
   HistoryScreen,
+  ScannerScreen,
 };

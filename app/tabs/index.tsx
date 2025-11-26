@@ -13,6 +13,7 @@ import {
   InvitationsUser,
   InventoryScreen,
   HistoryScreen,
+  ScannerScreen,
 } from './screens';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { Pressable } from 'react-native';
@@ -125,6 +126,11 @@ export default function TabsScreen() {
         name={STACK_ROUTES.INVENTORY}
         component={InventoryScreen}
         options={{ title: 'Control de Stock' }}
+      />
+      <Stack.Screen
+        name={STACK_ROUTES.SCANNER}
+        component={ScannerScreen}
+        options={{ title: 'Escaner', headerBackTitle: 'Volver' }}
       />
     </Stack.Navigator>
   );

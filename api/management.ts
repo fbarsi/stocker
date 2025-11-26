@@ -211,6 +211,15 @@ export const useManagementApi = () => {
     const response = await secureFetch(`/inventory/movements/branch/${branchId}?page=${page}&limit=${limit}`);
     if (!response.ok) throw new Error('Error al cargar historial');
     return response.json();
+  }
+
+  const getItemBySku = async (sku: string) => {
+  const response = await secureFetch(`/items/sku/${sku}`);
+  if (!response.ok) {
+
+    throw new Error('Producto no encontrado');
+  }
+  return response.json();
   };
 
   return {
@@ -228,5 +237,6 @@ export const useManagementApi = () => {
     getBranchInventory,
     adjustInventory,
     getBranchMovements,
+    getItemBySku,
   };
 };
