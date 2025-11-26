@@ -1,7 +1,18 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { TAB_ROUTES, STACK_ROUTES } from '@utils/constants';
-import { Home, Products, NewProduct, CreateCompany, NewBranch, ItemsCatalog, NewItem } from './screens';
+import {
+  Home,
+  Products,
+  NewProduct,
+  CreateCompany,
+  NewBranch,
+  ItemsCatalog,
+  NewItem,
+  InvitationsManager,
+  InvitationsUser,
+  InventoryScreen,
+} from './screens';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { Pressable } from 'react-native';
 import { useContext } from 'react';
@@ -68,7 +79,11 @@ export default function TabsScreen() {
         component={NewProduct}
         options={{ title: 'Nuevo Producto' }}
       />
-      <Stack.Screen name={STACK_ROUTES.NEW_BRANCH} component={NewBranch} options={{ title: 'Sucursal' }} />
+      <Stack.Screen 
+        name={STACK_ROUTES.NEW_BRANCH} 
+        component={NewBranch} 
+        options={{ title: 'Sucursal' }} 
+      />
       <Stack.Screen
         name={STACK_ROUTES.CREATE_COMPANY}
         component={CreateCompany}
@@ -79,7 +94,27 @@ export default function TabsScreen() {
         component={ItemsCatalog}
         options={{ title: 'Catálogo' }}
       />
-      <Stack.Screen name={STACK_ROUTES.NEW_ITEM} component={NewItem} options={{ title: 'Nuevo Artículo' }} />
+      <Stack.Screen 
+        name={STACK_ROUTES.NEW_ITEM} 
+        component={NewItem} 
+        options={{ title: 'Nuevo Artículo' }} 
+      />
+      <Stack.Screen
+        name={STACK_ROUTES.INVITATIONS_MANAGER}
+        component={InvitationsManager}
+        options={{ title: 'Gestionar Invitaciones' }}
+      />
+      <Stack.Screen
+        name={STACK_ROUTES.INVITATIONS_USER}
+        component={InvitationsUser}
+        options={{ title: 'Mis Invitaciones' }}
+      />
+
+      <Stack.Screen
+        name={STACK_ROUTES.INVENTORY}
+        component={InventoryScreen}
+        options={{ title: 'Control de Stock' }}
+      />
     </Stack.Navigator>
   );
 }

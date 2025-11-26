@@ -20,5 +20,8 @@ export enum STACK_ROUTES {
     CREATE_COMPANY = 'create-company',
     ITEMS_CATALOG = 'items-catalog',
     NEW_ITEM = 'new-item',
+    INVITATIONS_MANAGER = 'invitations-manager',
+    INVITATIONS_USER = 'invitations-user',
+    INVENTORY = 'inventory',
 }
 

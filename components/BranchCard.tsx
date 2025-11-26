@@ -8,16 +8,26 @@ import { Button } from '@components/Button';
 interface BranchCardProps {
   name: string;
   address?: string;
+  onPressInventory?: () => void;
 }
 
-function CardButton({text}: {text: string}) {
+function CardButton({ text }: { text: string }) {
   const { colors, isDarkMode } = useContext(ThemeContext);
   const style = useStyles();
   return (
-    <TouchableOpacity activeOpacity={0.7} style={{flex: 1, alignItems: 'center', backgroundColor: colors.primary, paddingVertical: 10, borderRadius: 10}}>
-      <Text style={{color: colors.on_primary, fontSize: 14}}>{text}</Text>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: colors.primary,
+        paddingVertical: 10,
+        borderRadius: 10,
+      }}
+    >
+      <Text style={{ color: colors.on_primary, fontSize: 14 }}>{text}</Text>
     </TouchableOpacity>
-  )
+  );
 }
 
 export function BranchCard({ name, address }: BranchCardProps) {
@@ -53,9 +63,9 @@ export function BranchCard({ name, address }: BranchCardProps) {
         </View>
       </View>
       <View style={{ flexDirection: 'row', gap: 10 }}>
-        <CardButton text='Inventario'/>
-        <CardButton text='Reportes'/>
-        <CardButton text='Empleados'/>
+        <CardButton text="Inventario" />
+        <CardButton text="Reportes" />
+        <CardButton text="Empleados" />
       </View>
     </View>
   );

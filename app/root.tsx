@@ -14,8 +14,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { usePushNotifications } from '@shared/hooks/usePushNotifications';
 import { Text, Alert, Clipboard, TouchableOpacity } from 'react-native';
 
-
-
 const Stack = createNativeStackNavigator();
 
 export default function Root() {
@@ -29,17 +27,17 @@ export default function Root() {
 
   useEffect(() => {
     if (expoPushToken) {
-       console.log("Token listo para usar:", expoPushToken);
+      console.log('Token listo para usar:', expoPushToken);
     }
   }, [expoPushToken]);
 
   const copyToken = () => {
-      if(expoPushToken) {
-          Clipboard.setString(expoPushToken);
-          Alert.alert("Copiado", "Token copiado al portapapeles");
-      }
+    if (expoPushToken) {
+      Clipboard.setString(expoPushToken);
+      Alert.alert('Copiado', 'Token copiado al portapapeles');
+    }
   };
-  
+
   useEffect(() => {
     dispatch({ type: AuthActionTypes.LOGIN_START });
 

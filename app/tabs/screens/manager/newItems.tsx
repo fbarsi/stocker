@@ -14,7 +14,7 @@ export default function NewItem() {
   const navigation = useNavigation();
   const api = useManagementApi();
   const queryClient = useQueryClient();
-	const { colors } = useContext(ThemeContext);
+  const { colors } = useContext(ThemeContext);
 
   const [name, setName] = useState('');
   const [sku, setSku] = useState('');
@@ -41,61 +41,61 @@ export default function NewItem() {
   };
 
   return (
-		<SafeAreaView style={{flex:1, backgroundColor: colors.bg}}>
-			
-    <KeyboardAwareScrollView
-      bottomOffset={20}
-      contentContainerStyle={[style.container, { flexGrow: 1, flex: 0, justifyContent: 'flex-start' }]}
-      keyboardShouldPersistTaps="handled"
-			>
-      <Text style={[style.title, { marginBottom: 20 }]}>Nuevo Artículo</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={['bottom']}>
+      <KeyboardAwareScrollView
+        bottomOffset={160}
+        contentContainerStyle={[style.container, { flexGrow: 1, flex: 0, justifyContent: 'flex-start' }]}
+        keyboardShouldPersistTaps="handled"
+        extraKeyboardSpace={-60}
+      >
+        <Text style={[style.title, { marginBottom: 20 }]}>Nuevo Artículo</Text>
 
-      <Text style={style.text}>Nombre del Producto *</Text>
-      <TextInput
-        style={style.input}
-        placeholder="Ej: Coca Cola 2.5L"
-        placeholderTextColor={style.placeholder.color}
-        value={name}
-        onChangeText={setName}
-      />
+        <Text style={style.text}>Nombre del Producto *</Text>
+        <TextInput
+          style={style.input}
+          placeholder="Ej: Coca Cola 2.5L"
+          placeholderTextColor={style.placeholder.color}
+          value={name}
+          onChangeText={setName}
+        />
 
-      <Text style={style.text}>SKU / Código (Opcional)</Text>
-      <TextInput
-        style={style.input}
-        placeholder="Ej: 779123456"
-        placeholderTextColor={style.placeholder.color}
-        value={sku}
-        onChangeText={setSku}
-				/>
+        <Text style={style.text}>SKU / Código (Opcional)</Text>
+        <TextInput
+          style={style.input}
+          placeholder="Ej: 779123456"
+          placeholderTextColor={style.placeholder.color}
+          value={sku}
+          onChangeText={setSku}
+        />
 
-      <Text style={style.text}>Unidades por Bulto *</Text>
-      <TextInput
-        style={style.input}
-        placeholder="Ej: 6"
-        placeholderTextColor={style.placeholder.color}
-        value={units}
-        onChangeText={setUnits}
-        keyboardType="numeric"
-				/>
+        <Text style={style.text}>Unidades por Bulto *</Text>
+        <TextInput
+          style={style.input}
+          placeholder="Ej: 6"
+          placeholderTextColor={style.placeholder.color}
+          value={units}
+          onChangeText={setUnits}
+          keyboardType="numeric"
+        />
 
-      <Text style={style.text}>Descripción (Opcional)</Text>
-      <TextInput
-        style={[style.input, { height: 100, textAlignVertical: 'top' }]}
-        placeholder="Detalles del producto..."
-        placeholderTextColor={style.placeholder.color}
-        value={description}
-        onChangeText={setDescription}
-        multiline
-				/>
+        <Text style={style.text}>Descripción (Opcional)</Text>
+        <TextInput
+          style={[style.input, { height: 100, textAlignVertical: 'top' }]}
+          placeholder="Detalles del producto..."
+          placeholderTextColor={style.placeholder.color}
+          value={description}
+          onChangeText={setDescription}
+          multiline
+        />
 
-      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-        {createItemMutation.isPending ? (
-          <ActivityIndicator size="large" color={style.text.color} />
-        ) : (
-					<Button text="Guardar Artículo" onPress={handleCreate} disabled={!name.trim() || !units.trim()} />
-        )}
-      </View>
-    </KeyboardAwareScrollView>
-					</SafeAreaView>
+        <View style={{ flex: 1, justifyContent: 'flex-end', width: '100%' }}>
+          {createItemMutation.isPending ? (
+            <ActivityIndicator size="large" color={style.text.color} />
+          ) : (
+            <Button text="Guardar Artículo" onPress={handleCreate} disabled={!name.trim() || !units.trim()} />
+          )}
+        </View>
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 }
