@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useRoute, useNavigation } from '@react-navigation/native'; // Importaciones necesarias
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 import { ThemeContext } from '@shared/context/ThemeContext';
 import { useManagementApi, InventoryItem, MovementType, Branch, Item } from '@api/management';
@@ -23,6 +23,7 @@ import { Button } from '@components/Button';
 import { StockAdjustmentModal } from '@components/StockAdjustmentModal';
 import { STACK_ROUTES } from '@utils/constants';
 
+import { RefreshControl } from 'react-native';
 
 export default function Products(): React.JSX.Element {
   const { style, padCont, colors } = useStyle();
@@ -67,10 +68,15 @@ export default function Products(): React.JSX.Element {
     }
   }, [userProfile, isManager, branches, selectedBranchId]);
 
-  const { data: inventory, isLoading: loadingInventory } = useQuery({
-    queryKey: ['inventory', selectedBranchId],
-    queryFn: () => api.getBranchInventory(selectedBranchId!),
-    enabled: !!selectedBranchId,
+  const { 
+      data: inventory, 
+      isLoading: loadingInventory, 
+      refetch: refetchInventory,
+      isRefetching: isRefetchingInventory
+  } = useQuery({
+      queryKey: ['inventory', selectedBranchId],
+      queryFn: () => api.getBranchInventory(selectedBranchId!),
+      enabled: !!selectedBranchId,
   });
 
   const { data: catalogItems } = useQuery({
@@ -208,6 +214,14 @@ export default function Products(): React.JSX.Element {
             ListFooterComponent={() => <View style={{ height: padCont }} />}
             scrollEnabled={true}
             showsVerticalScrollIndicator={false}
+            refreshControl={
+                  <RefreshControl
+                      refreshing={isRefetchingInventory}
+                      onRefresh={refetchInventory}
+                      tintColor={colors.primary}
+                      colors={[colors.primary]}
+                  />
+              }
             ListEmptyComponent={
               <Text style={{ textAlign: 'center', marginTop: 20, color: colors.text_muted }}>
                 No se encontraron productos.
