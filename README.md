@@ -104,12 +104,12 @@ stocker/
 
 | Login & Registro | Inicio & Dashboard |
 |:---:|:---:|
-| ![alt text](assets\iniciosesion.png) | ![alt text](assets\Dashboard.png) |
+| ![alt text](assets/iniciosesion.png) | ![alt text](assets/Dashboard.png) |
 | *Acceso seguro y creación de cuentas.* | *Panel principal con accesos rápidos.* |
 
 | Inventario & Scanner | Gestión de Sucursales |
 |:---:|:---:|
-| ![alt text](assets\escaner.png) | ![alt text](assets\sucursales.png) |
+| ![alt text](assets/escaner.png) | ![alt text](assets/sucursales.png) |
 | *Listado de productos y escáner.* | *Geolocalización y alta de sucursales.* |
 
 ## 🙋‍♂️ **Autores**
