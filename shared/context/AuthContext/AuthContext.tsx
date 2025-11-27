@@ -67,6 +67,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           accessToken: action.payload.accessToken,
           refreshToken: action.payload.refreshToken,
         };
+      // case AuthActionTypes.UPDATE_ROLE_MANAGER:
+      //   setTokens(action.payload.accessToken, action.payload.refreshToken);
+      //   return {
+      //     ...state,
+      //     user: { ...state.user, role: 'manager' },
+      //     accessToken: action.payload.accessToken,
+      //     refreshToken: action.payload.refreshToken,
+      //   };
       default:
         return state;
     }

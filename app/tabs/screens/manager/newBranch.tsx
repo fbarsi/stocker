@@ -11,17 +11,20 @@ import {
 } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, MapPressEvent } from 'react-native-maps';
 import * as Location from 'expo-location';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button, ButtonTheme } from '@components';
 import { useStyles } from '@utils/styles';
 import { useManagementApi } from '@api/management';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import { STACK_ROUTES, TAB_ROUTES } from '@utils/constants';
 
 export default function NewBranch() {
   const style = useStyles();
   const navigation = useNavigation();
+  const route = useRoute();
+  const { fromOnboarding } = (route.params as { fromOnboarding?: boolean }) || {};
   const api = useManagementApi();
   const queryClient = useQueryClient();
 
@@ -105,7 +108,15 @@ export default function NewBranch() {
     mutationFn: api.createBranch,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['branches'] });
-      navigation.goBack()
+      if (fromOnboarding) {
+        navigation.navigate(STACK_ROUTES.NAV_STACK_TABS as never); 
+      } else {
+        if (navigation.canGoBack()) {
+            navigation.goBack();
+        } else {
+            navigation.navigate(STACK_ROUTES.NAV_STACK_TABS as never);
+        }
+      }
     },
     onError: (err) => Alert.alert('Error', err.message),
   });

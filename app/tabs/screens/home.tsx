@@ -42,6 +42,7 @@ export default function Home() {
   }
 
   const isManager = userProfile?.role?.role_name === 'Manager';
+  console.log(userProfile)
 
   if (isManager && branches && branches.length === 0) {
     return (
